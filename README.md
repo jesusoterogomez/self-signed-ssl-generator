@@ -19,3 +19,5 @@ $ ./create.sh
 ```
 
 - Get CA Key / Certificates from `./ssl` directory
+
+To enable SSL in nginx you will usually need `server.crt`, `server.key` and `dhparam.pem`.
