@@ -33,6 +33,8 @@ subjectAltName = @alt_names
 DNS.1 = $CERT_DOMAIN
 EOF
 
+# Generate DH Params
+openssl dhparam -out ./ssl/dhparam.pem 1024
 
 # Generate Root CA Key
 openssl genrsa -out ./ssl/rootCA.key 2048
