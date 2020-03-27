@@ -40,10 +40,13 @@ openssl dhparam -out ./ssl/dhparam.pem 1024
 openssl genrsa -out ./ssl/rootCA.key 2048
 
 # Generate Root CA Certificate
-openssl req -x509 -new -nodes -key ./ssl/rootCA.key -sha256 -days 1024 -config ./temp/server.csr.cnf -out ./ssl/rootCA.pem
+openssl req -x509 -new -nodes -key ./ssl/rootCA.key -sha256 -days $CERT_DAYS -config ./temp/server.csr.cnf -out ./ssl/rootCA.pem
 
 # Generate CSR
 openssl req -new -sha256 -nodes -out ./ssl/server.csr -newkey rsa:2048 -keyout ./ssl/server.key -config ./temp/server.csr.cnf
 
 # Create Certificate with v3 extension for Subject Alt Name
-openssl x509 -req -in ./ssl/server.csr -CA ./ssl/rootCA.pem -CAkey ./ssl/rootCA.key -CAcreateserial -out ./ssl/server.crt -days 500 -sha256 -extfile ./temp/v3.ext
+openssl x509 -req -in ./ssl/server.csr -CA ./ssl/rootCA.pem -CAkey ./ssl/rootCA.key -CAcreateserial -out ./ssl/server.crt -days $CERT_DAYS -sha256 -extfile ./temp/v3.ext
+
+# Delete temp files
+rm -rf temp && rm .srl
